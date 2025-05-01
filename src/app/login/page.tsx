@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch } from "react-redux";
 import { login } from "@/features/auth/authSlice";
 import { useRouter } from "next/navigation";
-import { loginAction } from "@/server/actions/auth";
+import { loginAction } from "@/actions/auth";
 
 const schema = z.object({
   email: z.string().email(),

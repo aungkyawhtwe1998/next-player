@@ -82,30 +82,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-
-{
-  /* <div className="p-4">
-              
-              <div className="text-gray-700">
-                <div className="mb-2">
-                  <strong>Team:</strong> {player.team.full_name}
-                </div>
-                <div className="mb-2">
-                  <strong>Height:</strong> {player.height}
-                </div>
-                <div className="mb-2">
-                  <strong>Weight:</strong> {player.weight} lbs
-                </div>
-
-                <div className="mb-2">
-                  <strong>Jersey Number:</strong> {player.jersey_number}
-                </div>
-                <div className="mb-2">
-                  <strong>College:</strong> {player.college}
-                </div>
-                <div className="mb-2">
-                  <strong>Country:</strong> {player.country}
-                </div>
-              </div>
-            </div> */
-}

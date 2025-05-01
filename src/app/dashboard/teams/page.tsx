@@ -61,7 +61,7 @@ export default function TeamsPage() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {teams.map((team) => (
+        {teams && teams.length>0 ? teams?.map((team) => (
           <div
             key={team.id}
             className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 space-y-2 border border-gray-500 hover:shadow-md transition">
@@ -101,7 +101,7 @@ export default function TeamsPage() {
               </button>
             </div>
           </div>
-        ))}
+        )): <p>No Team found!</p>}
       </div>
       {/* Team Modal */}
       <TeamModal

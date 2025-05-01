@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/lib/store";
 import { logout } from "@/features/auth/authSlice";
 import { FiMenu, FiLogOut, FiX } from "react-icons/fi";
+import { logoutAction } from "@/actions/auth";
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -22,7 +23,8 @@ export default function Sidebar() {
     { name: "Teams", href: "/dashboard/teams" },
   ];
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await logoutAction();
     dispatch(logout());
     window.location.href = "/login";
   };
