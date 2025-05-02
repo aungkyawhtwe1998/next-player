@@ -114,7 +114,7 @@ export default function TeamsPage() {
       <PlayerModal
         isOpen={isPlayerModalOpen}
         onClose={() => setIsPlayerModalOpen(false)}
-        teamId={selectedTeam?.id!}
+        teamId={selectedTeam?.id}
         players={players}
         isLoading={loading}
         loadMore={handleLoadMore}
