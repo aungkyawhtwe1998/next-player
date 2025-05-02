@@ -13,7 +13,7 @@ import {
 interface PlayerModalProps {
   isOpen: boolean;
   onClose: () => void;
-  teamId: string;
+  teamId?: string;
   players: Player[];
   isLoading: boolean;
   loadMore: () => void;
@@ -64,14 +64,14 @@ function ModalContent({
 
   const handleAddPlayer = (player: Player) => {
     if (!team) return;
-  
+
     const current_count = team.players?.length ?? 0;
-  
+
     // Check if this player is in *any* team already
     const isAlreadyInOtherTeam = teams.some(
       (t) => t.id !== team.id && t.players?.some((p) => p.id === player.id)
     );
-  
+
     if (isAlreadyInOtherTeam) {
       showAlert({
         title: "Player already assigned",
@@ -80,7 +80,7 @@ function ModalContent({
       });
       return;
     }
-  
+
     if (current_count >= team.player_count!) {
       showAlert({
         title: "Sorry",
@@ -89,13 +89,14 @@ function ModalContent({
       });
       return;
     }
-  
+
     dispatch(addPlayerToTeam({ teamId: team.id, player }));
   };
-  
 
   const handleRemovePlayer = (playerId: string) => {
-    dispatch(removePlayerFromTeam({ teamId, playerId }));
+    if (teamId) {
+      dispatch(removePlayerFromTeam({ teamId, playerId }));
+    }
   };
 
   useEffect(() => {
