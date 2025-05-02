@@ -16,7 +16,7 @@ export default function Sidebar() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
-  if (!isAuthenticated || pathname == '/') return null;
+  if (!isAuthenticated || pathname == "/") return null;
 
   const routes = [
     { name: "Players", href: "/dashboard" },
