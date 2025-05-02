@@ -63,19 +63,36 @@ function ModalContent({
   }, [dispatch]);
 
   const handleAddPlayer = (player: Player) => {
-    if (team && team.player_count && team.players) {
-      if (team.player_count === team.players.length) {
-        showAlert({
-          title: "Sorry",
-          description: "Member Limit is already full!",
-          cancelText: undefined,
-          confirmText: "Ok",
-        });
-      } else {
-        dispatch(addPlayerToTeam({ teamId: team.id, player }));
-      }
+    if (!team) return;
+  
+    const current_count = team.players?.length ?? 0;
+  
+    // Check if this player is in *any* team already
+    const isAlreadyInOtherTeam = teams.some(
+      (t) => t.id !== team.id && t.players?.some((p) => p.id === player.id)
+    );
+  
+    if (isAlreadyInOtherTeam) {
+      showAlert({
+        title: "Player already assigned",
+        description: `${player.first_name} ${player.last_name} is already in another team.`,
+        confirmText: "Ok",
+      });
+      return;
     }
+  
+    if (current_count >= team.player_count!) {
+      showAlert({
+        title: "Sorry",
+        description: "Member limit is already full!",
+        confirmText: "Ok",
+      });
+      return;
+    }
+  
+    dispatch(addPlayerToTeam({ teamId: team.id, player }));
   };
+  
 
   const handleRemovePlayer = (playerId: string) => {
     dispatch(removePlayerFromTeam({ teamId, playerId }));

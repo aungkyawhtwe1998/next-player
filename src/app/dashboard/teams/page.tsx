@@ -7,6 +7,7 @@ import PlayerModal from "@/components/PlayerModal"; // Import the PlayerModal co
 import { FiEdit3, FiPlus, FiTrash, FiUserPlus } from "react-icons/fi";
 import { fetchPlayers } from "@/features/players/playerSlice";
 import { useAlert } from "@/hooks/useAlert";
+import { Team } from "@/features/teams/types";
 
 export default function TeamsPage() {
   const teams = useAppSelector((state) => state.teams.teams);
@@ -14,13 +15,12 @@ export default function TeamsPage() {
 
   const [isTeamModalOpen, setIsTeamModalOpen] = useState(false);
   const [isPlayerModalOpen, setIsPlayerModalOpen] = useState(false);
-  const [selectedTeamId, setSelectedTeamId] = useState<string | null>(null);
+  const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
   const { players, loading, nextCursor } = useAppSelector(
     (state) => state.players
   );
   const { showAlert } = useAlert();
 
-  const team = teams.find((team) => team.id === selectedTeamId);
   const [mounted, setMounted] = useState(false);
 
   const handleLoadMore = useCallback(() => {
@@ -52,7 +52,7 @@ export default function TeamsPage() {
         <h1 className="text-4xl font-bold">Teams</h1>
         <button
           onClick={() => {
-            setSelectedTeamId(null);
+            setSelectedTeam(null);
             setIsTeamModalOpen(true);
           }}
           className="border-2 border-green-600/80 hover:bg-green-600 hover:text-white transition-all ease-in-out duration-300 flex items-center gap-2 px-4 py-2 rounded">
@@ -81,7 +81,7 @@ export default function TeamsPage() {
               <button
                 className="text-blue-600 hover:text-blue-400"
                 onClick={() => {
-                  setSelectedTeamId(team.id);
+                  setSelectedTeam(team);
                   setIsPlayerModalOpen(true);
                 }}>
                 <FiUserPlus size={18} />
@@ -89,7 +89,7 @@ export default function TeamsPage() {
               <button
                 className=" hover:text-gray-400"
                 onClick={() => {
-                  setSelectedTeamId(team.id);
+                  setSelectedTeam(team);
                   setIsTeamModalOpen(true);
                 }}>
                 <FiEdit3 size={18} />
@@ -107,14 +107,14 @@ export default function TeamsPage() {
       <TeamModal
         isOpen={isTeamModalOpen}
         onClose={() => setIsTeamModalOpen(false)}
-        editTeam={team}
+        editTeam={selectedTeam}
       />
 
       {/* Player Modal */}
       <PlayerModal
         isOpen={isPlayerModalOpen}
         onClose={() => setIsPlayerModalOpen(false)}
-        teamId={selectedTeamId!}
+        teamId={selectedTeam?.id!}
         players={players}
         isLoading={loading}
         loadMore={handleLoadMore}

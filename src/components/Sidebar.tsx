@@ -16,7 +16,7 @@ export default function Sidebar() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
-  if (!isAuthenticated) return null;
+  if (!isAuthenticated || pathname == '/') return null;
 
   const routes = [
     { name: "Players", href: "/dashboard" },
@@ -30,7 +30,7 @@ export default function Sidebar() {
   };
 
   return (
-    <>
+    <div className="sticky h-screen top-0">
       {/* Mobile Toggle Button */}
       <button
         className="md:hidden fixed top-4 left-4 z-50 dark:bg-gray-800  p-2 rounded"
@@ -68,13 +68,13 @@ export default function Sidebar() {
           <div className="p-2">
             <button
               onClick={handleLogout}
-              className="w-full px-4 py-2 dark:bg-gray-700 bg-gray-200 hover:dark:bg-gray-100 hover:bg-gray-300 rounded text-red-600 text-lg flex items-center justify-center gap-2">
+              className="w-full px-4 py-2 dark:bg-gray-700 bg-gray-200 hover:dark:bg-gray-100 hover:bg-gray-300 rounded text-red-600 dark:text-red-500 text-lg flex items-center justify-center gap-2">
               <FiLogOut />
               Logout
             </button>
           </div>
         </div>
       </aside>
-    </>
+    </div>
   );
 }

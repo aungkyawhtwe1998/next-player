@@ -66,7 +66,7 @@ export default function DashboardPage() {
               <h2 className="text-xl font-semibold ">
                 {player.first_name} {player.last_name}
               </h2>
-              <p className="text-sm text-nowrap text-amber-900">
+              <p className="text-sm text-nowrap text-amber-500">
                 {player.position}
               </p>
             </div>

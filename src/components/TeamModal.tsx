@@ -68,6 +68,7 @@ export default function TeamModal({ isOpen, onClose, editTeam }: Props) {
     const team: Team = {
       ...data,
       id: editTeam ? editTeam.id : uuidv4(),
+      players: editTeam?.players ?? [],
     };
 
     const isDuplicate =
@@ -86,7 +87,7 @@ export default function TeamModal({ isOpen, onClose, editTeam }: Props) {
     if (editTeam) {
       dispatch(updateTeam(team));
     } else {
-      dispatch(createTeam({ players: [], ...team }));
+      dispatch(createTeam(team));
     }
     reset();
     onClose();
